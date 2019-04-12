@@ -40,9 +40,19 @@ object Bayes {
                 .setAppName("bayes")
                 .setMaster("local")
     val sc = new SparkContext(conf)
-    val dataRDD = sc.textFile(this.HDFS_PATH + "dataset/adult.data")
 
+    // 读取数据集
+    val dataRDD = MLUtils.loadLibSVMFile(sc, this.HDFS_PATH + "dataset/adult.data")
+//    val dataRDD = sc.textFile(this.HDFS_PATH + "dataset/adult.data")
+//                .map(x => x.split(",").map(x => x.trim()))
+//                .filter(x => x.length != 15)
+    val Array(training, test) = dataRDD.randomSplit(Array(0.6, 0.4))
+    val model = NaiveBayes.train(training, lambda = 1.0, modelType = "multinomial")
+    val predictionAndLabel = test.map(x => (model.predict(x.features), x.label))
+    val accuracy = 1.0 * predictionAndLabel.filter(x => x._1 == x._2).count() / test.count()
+    model.save(sc, this.HDFS_PATH + "model/naiveBayesModel")
 
+    //val bayesModel = NaiveBayesModel.load(sc, "model/naiveBayesModel")
   }
 
   private val HDFS_PATH = "hdfs://10.26.26.145:8020/rs/dingjing/"
