@@ -47,10 +47,8 @@ object Bayes {
                 .map(transToSVM)
                 .filter(x => x != "")
                 .saveAsTextFile(this.HDFS_PATH + "/bayes/adult.svm")
-
     val dataRDD = MLUtils.loadLibSVMFile(sc, this.HDFS_PATH + "/bayes/adult.svm")
-
-    val Array(training, test) = dataRDD.randomSplit(Array(0.1, 0.9))
+    val Array(training, test) = dataRDD.randomSplit(Array(0.6, 0.4))
     val model = NaiveBayes.train(training, lambda = 1.0, modelType = "multinomial")
     val predictionAndLabel = test.map(x => (model.predict(x.features), x.label))
     val accuracy = 1.0 * predictionAndLabel.filter(x => x._1 == x._2).count() / test.count()

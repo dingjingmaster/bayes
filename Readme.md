@@ -27,3 +27,31 @@ spark 机器学习练习 —— 贝叶斯
   -  十四列：祖国（离散）United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands.
   -  十五列：年收入是否超过 50K（离散） >=50K <50k
 
+#### 最后结果
+
+分类准确率为 0.78
+
+------
+
+### 书籍二级分类
+
+考虑到书籍的分类与书籍内容的关系，使用朴素贝叶斯尝试对书籍进行分类。
+
+#### 数据格式维度
+
+- 书籍 ID
+- 归一化书名
+- 归一化作者名
+- 一级分类
+- 抓取得到的 tag
+- 章节关键词
+
+##### 归一化书名预处理
+
+##### 归一化作者名预处理
+
+##### 一级分类预处理
+
+##### tag预处理
+
+##### 章节关键词预处理
