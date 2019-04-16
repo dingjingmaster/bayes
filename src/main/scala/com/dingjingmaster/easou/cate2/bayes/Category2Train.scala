@@ -12,6 +12,9 @@ object Category2Train {
 
     val conf = new SparkConf()
                   .setAppName("bayes_category2")
+                  .set("spark.executor.memory", "10g")
+                  .set("spark.driver.memory", "4g")
+                  .set("spark.cores.max", "10")
                   .setMaster("local")
     val sc = new SparkContext(conf)
 
@@ -36,15 +39,15 @@ object Category2Train {
                     .map(x => x._1 + "\t" + x._2)
                     .zipWithIndex()
                     .map(x => x._2 + "\t" + x._1)
-    normNameRDD.saveAsTextFile(HDFS_DINGJING + "category2/" + "/name/")
+    //normNameRDD.saveAsTextFile(HDFS_DINGJING + "category2/" + dateStr + "/name/")
     /* 处理作者名 */
-    val AuthorRDD = allItemInfoRDD.map(x => x.split("\\t"))
+    val authorRDD = allItemInfoRDD.map(x => x.split("\\t"))
                     .map(x => (x(2), 1))
                     .reduceByKey((x, y) => x + y)
                     .map(x => x._1 + "\t" + x._2)
                     .zipWithIndex()
                     .map(x => x._2 + "\t" + x._1)
-    AuthorRDD.saveAsTextFile(HDFS_DINGJING + "category2/" + "/author/")
+    //authorRDD.saveAsTextFile(HDFS_DINGJING + "category2/" + dateStr + "/author/")
     /* 处理tag */
     val tagRDD = allItemInfoRDD.map(x => x.split("\\t"))
                     .map(x => x(4))
@@ -54,7 +57,7 @@ object Category2Train {
                     .map(x => x._1 + "\t" + x._2)
                     .zipWithIndex()
                     .map(x => x._2 + "\t" + x._1)
-    tagRDD.saveAsTextFile(HDFS_DINGJING + "category2/" + "/tag/")
+    //tagRDD.saveAsTextFile(HDFS_DINGJING + "category2/" + dateStr + "/tag/")
     /* 处理一级分类 */
     val category1RDD = allItemInfoRDD.map(x => x.split("\\t"))
                     .map(x => x(3).split(","))
@@ -64,10 +67,10 @@ object Category2Train {
                     .map(x => x._1 + "\t" + x._2)
                     .zipWithIndex()
                     .map(x => x._2 + "\t" + x._1)
-    category1RDD.saveAsTextFile(HDFS_DINGJING + "category2/" + "/cate1/")
+    //category1RDD.saveAsTextFile(HDFS_DINGJING + "category2/" + dateStr + "/cate1/")
     /* 处理章节信息 */
-
     /* 准备训练集和测试集 */
+
   }
 
   private val HDFS = "hdfs://10.26.26.145:8020/"
