@@ -69,7 +69,13 @@ object Category2Train {
                     .map(x => x._2 + "\t" + x._1)
     //category1RDD.saveAsTextFile(HDFS_DINGJING + "category2/" + dateStr + "/cate1/")
     /* 处理章节信息 */
-    /* 准备训练集和测试集 */
+
+    /* 数据抽样并生成生成 svm 文件 */
+    val sampleRDD1 = allItemInfoRDD.map(x => x.split("\t"))
+                    .filter(x => x(5) == "1")
+                    .map(x => (x(0), (x(1), x(2), x(3), x(4), x(6))))
+
+
 
   }
 
