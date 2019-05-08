@@ -1,9 +1,9 @@
-package com.dingjingmaster.easou.cate3.regression
+package com.dingjingmaster.easou.cate3
 
-import com.dingjingmaster.easou.cate3.regression.Training.HDFS
-import com.dingjingmaster.easou.cate3.regression.Training.HDFS_ITEMINFO
-import com.dingjingmaster.easou.cate3.regression.Training.HDFS_CHAPTER
-import com.dingjingmaster.easou.cate3.regression.Training.HDFS_CATE3BASE
+import Training.HDFS
+import Training.HDFS_ITEMINFO
+import Training.HDFS_CHAPTER
+import Training.HDFS_CATE3BASE
 import com.huaban.analysis.jieba.JiebaSegmenter
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -54,7 +54,7 @@ object Detail {
     while (it.hasNext){
       arr.append(it.next().word)
     }
-    return arr.mkString("{]")
+    arr.mkString("{]")
   }
   def detail_tag13(x: String): String = {
     var tg = ""
@@ -62,6 +62,6 @@ object Detail {
     if (arr.length >= 3) {
       tg = arr(2)
     }
-    return tg
+    tg
   }
 }

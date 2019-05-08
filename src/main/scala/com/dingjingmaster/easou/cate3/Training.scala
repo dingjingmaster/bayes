@@ -1,4 +1,4 @@
-package com.dingjingmaster.easou.cate3.regression
+package com.dingjingmaster.easou.cate3
 
 import scala.collection.Map
 import org.apache.spark.mllib.util.MLUtils
@@ -121,7 +121,7 @@ object Training {
     if (mp.contains(x._1)) {
       tag = mp(x._1)
     }
-    return (tag, (x._2._1, x._2._2))
+    (tag, (x._2._1, x._2._2))
   }
 
   def detail_name(x: Tuple2[String, Tuple2[String,String]], mp: Map[String, String]):
@@ -130,7 +130,7 @@ object Training {
     if (mp.contains(x._2._1)) {
       name = mp(x._2._1)
     }
-    return (x._1, (name, x._2._2))
+    (x._1, (name, x._2._2))
   }
 
   def detail_author(x: Tuple2[String, Tuple2[String, String]], mp: Map[String, String]):
@@ -139,7 +139,7 @@ object Training {
     if (mp.contains(x._2._2)) {
       author = mp(x._2._2)
     }
-    return (x._1, (x._2._1, author))
+    (x._1, (x._2._1, author))
   }
 
   val HDFS = "hdfs://10.26.26.145:8020/"
