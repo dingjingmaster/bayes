@@ -1,9 +1,9 @@
 package com.dingjingmaster.easou.cate3
 
-import Training.HDFS
-import Training.HDFS_ITEMINFO
-import Training.HDFS_CHAPTER
-import Training.HDFS_CATE3BASE
+import Params.HDFS
+import Params.HDFS_ITEMINFO
+import Params.HDFS_CHAPTER
+import Params.HDFS_CATE3BASE
 import com.huaban.analysis.jieba.JiebaSegmenter
 import org.apache.spark.{SparkConf, SparkContext}
 
