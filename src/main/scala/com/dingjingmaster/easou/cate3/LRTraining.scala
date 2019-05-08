@@ -9,10 +9,10 @@ import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.evaluation.MulticlassMetrics
 import org.apache.spark.mllib.classification.{LogisticRegressionWithLBFGS}
 
-object Training {
+object LRTraining {
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf()
-                  .setAppName("category3_training")
+                  .setAppName("category3_lr_training")
                   .set("spark.executor.memory", "20g")
                   .set("spark.driver.memory", "4g")
                   .set("spark.cores.max", "30")
@@ -27,9 +27,10 @@ object Training {
     val model = new LogisticRegressionWithLBFGS()
                   .setNumClasses(classNum.toInt)
                   .run(training)
-    val predictionAndLabels = test.map { case LabeledPoint(label, features) =>
-      val prediction = model.predict(features)
-      (prediction, label)
+    val predictionAndLabels = test.map {
+      case LabeledPoint(label, features) =>
+        val prediction = model.predict(features)
+        (prediction, label)
     }
 
     val metrics = new MulticlassMetrics(predictionAndLabels)
