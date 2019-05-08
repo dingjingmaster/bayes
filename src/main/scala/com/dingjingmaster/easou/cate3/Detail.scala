@@ -21,7 +21,7 @@ object Detail {
     val dateStr = "2019-04-15"
     val chapterPath = HDFS + "/rs/dingjing/item_norm/2019-01-28/chapter_info/"
     val conf = new SparkConf()
-                .setAppName("bayes_category3_detail")
+                .setAppName("category3_detail")
                 .set("spark.executor.memory", "10g")
                 .set("spark.driver.memory", "4g")
                 .set("spark.cores.max", "10")

@@ -13,7 +13,7 @@ object Tfidf {
     val svmPath = HDFS + "/rs/dingjing/category3/svm/"
 
     val ss = SparkSession.builder()
-                      .appName("bayes_category3_vector")
+                      .appName("category3_vector")
                       .config("spark.executor.memory", "10g")
                       .config("spark.driver.memory", "4g")
                       .config("spark.cores.max", "30")
