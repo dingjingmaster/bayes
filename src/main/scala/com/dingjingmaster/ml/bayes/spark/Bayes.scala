@@ -37,7 +37,7 @@ import org.apache.spark.mllib.classification.{NaiveBayes, NaiveBayesModel}
 object Bayes {
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf()
-                .setAppName("bayes")
+                .setAppName("regression")
                 .setMaster("local")
     val sc = new SparkContext(conf)
 
@@ -46,13 +46,13 @@ object Bayes {
                 .filter(x => x != "")
                 .map(transToSVM)
                 .filter(x => x != "")
-                .saveAsTextFile(this.HDFS_PATH + "/bayes/adult.svm")
-    val dataRDD = MLUtils.loadLibSVMFile(sc, this.HDFS_PATH + "/bayes/adult.svm")
+                .saveAsTextFile(this.HDFS_PATH + "/regression/adult.svm")
+    val dataRDD = MLUtils.loadLibSVMFile(sc, this.HDFS_PATH + "/regression/adult.svm")
     val Array(training, test) = dataRDD.randomSplit(Array(0.6, 0.4))
     val model = NaiveBayes.train(training, lambda = 1.0, modelType = "multinomial")
     val predictionAndLabel = test.map(x => (model.predict(x.features), x.label))
     val accuracy = 1.0 * predictionAndLabel.filter(x => x._1 == x._2).count() / test.count()
-    model.save(sc, this.HDFS_PATH + "bayes/model/naiveBayesModel")
+    model.save(sc, this.HDFS_PATH + "regression/model/naiveBayesModel")
 
     print("\n\n\n------------------------------------------------------\n\n\n")
     print("准确率: " + accuracy.toString)
