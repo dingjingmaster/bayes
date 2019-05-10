@@ -27,7 +27,7 @@ object Tfidf {
                       .map(x => DataTrans(x._1, x._2, x._3.replace("{]", " ")))
                       .toDF("gid", "cate", "sentence")
     val tokenizerDF = new Tokenizer().setInputCol("sentence").setOutputCol("words").transform(wordDF)
-    val hashTFDF = new HashingTF().setInputCol("words").setOutputCol("rawFeatures").setNumFeatures(600000).transform(tokenizerDF)
+    val hashTFDF = new HashingTF().setInputCol("words").setOutputCol("rawFeatures").setNumFeatures(200000).transform(tokenizerDF)
     val featureDF = new IDF().setInputCol("rawFeatures").setOutputCol("features").fit(hashTFDF).transform(hashTFDF)
     val saveRDD = featureDF.rdd.map(save_vector)
     val cateG = ss.sparkContext.broadcast(
@@ -47,7 +47,7 @@ object Tfidf {
     val index = feature.indices
     val value = feature.values
     for (i <- 0 until index.length) {
-      values += "" + (index(i) + 1).toString + ":" + value(i).toString + " "
+      values += "" + (index(i) + 1).toString + ":" + 1.toString + " "
     }
     values = values.trim
 
