@@ -12,6 +12,7 @@ object BayesTraining {
                   .set("spark.executor.memory", "20g")
                   .set("spark.driver.memory", "6g")
                   .set("spark.cores.max", "30")
+                  .set("spark.dynamicAllocation.enabled", "false")
                   .setMaster("spark://qd01-tech2-spark001:7077,qd01-tech2-spark002:7077")
     val sc = new SparkContext(conf)
     val data = MLUtils.loadLibSVMFile(sc, HDFS_SVM)
